@@ -1,0 +1,46 @@
+FROM python:3.11-slim AS base
+
+# Uses the official Python 3.11 slim image as the base.
+# slim means minimal Linux packages, smaller image size.
+# AS base just gives this build stage a name (base).
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Updates Debian/Ubuntu package list.
+# Installs:
+# libgomp1 → GNU OpenMP runtime library (needed by many ML/AI libs like xgboost, faiss, transformers).
+# curl → command-line HTTP tool (sometimes needed for health checks, debugging).
+# --no-install-recommends → avoids installing extra unnecessary packages.
+# Cleans up apt cache (rm -rf /var/lib/apt/lists/*) to reduce image size.
+
+
+WORKDIR /app
+# Sets the working directory inside the container to /app.
+# All following commands run from here.
+# If /app doesn’t exist, it will be created.
+COPY requirements.txt ./requirements.txt
+# Copies requirements.txt from your local machine into the container at /app/requirements.txt.
+
+RUN pip install --no-cache-dir -r requirements.txt
+# Installs all Python dependencies from requirements.txt.
+# --no-cache-dir avoids caching packages to save space.
+
+COPY . .
+# Copies all files from your local project folder into /app in the container.
+ENV PORT=8080 HOST=0.0.0.0 PYTHONBUFFERED=1
+# PORT=8080 → Sets default port your app will run on.
+# HOST=0.0.0.0 → Bind to all network interfaces (needed for external access in Docker).
+# PYTHONBUFFERED=1 → Disables Python’s output buffering (so logs show instantly).
+EXPOSE 8080
+# Documents that the container will listen on port 8080.
+# This doesn’t actually publish the port — that happens with docker run -p.
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "2"]
+# The default command when the container starts.
+# Runs uvicorn (ASGI server) with:
+# app.main:app → load app object from main.py in app/ folder.
+# --host 0.0.0.0 → listen on all network interfaces.
+# --port 8080 → listen on port 8080.
+# --workers 2 → run 2 worker processes for handling requests.

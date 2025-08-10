@@ -1,0 +1,32 @@
+[
+  {
+    "doc_path": "data\\raw_docs\\animals.txt",
+    "chunk_id": "animals.txt::chunk_0",
+    "text": "Cats are small carnivorous mammals known for their independence and playful nature. They have been domesticated for thousands of years and are popular pets worldwide. Dogs are loyal and social animals, often called \"man's best friend.\" They have been bred for various purposes such as hunting, herding, and companionship. Elephants are the largest land animals, known for their intelligence and strong social bonds. They live in matriarchal groups and can communicate over long distances using infrasound. Birds are warm-blooded vertebrates with feathers, wings, and beaks. Many species are capable of flight, while others like penguins and ostriches are flightless. Tigers"
+  },
+  {
+    "doc_path": "data\\raw_docs\\animals.txt",
+    "chunk_id": "animals.txt::chunk_1",
+    "text": "with feathers, wings, and beaks. Many species are capable of flight, while others like penguins and ostriches are flightless. Tigers are powerful predators and the largest members of the cat family. They are solitary hunters and are known for their distinctive orange coats with black stripes."
+  },
+  {
+    "doc_path": "data\\raw_docs\\sample.md",
+    "chunk_id": "sample.md::chunk_0",
+    "text": "# Artificial Intelligence Artificial Intelligence (AI) is the simulation of human intelligence in machines that are programmed to think and learn. It has applications in areas such as healthcare, finance, transportation, and entertainment. ## Automation AI enables automation by performing repetitive tasks faster and with fewer errors than humans. For example, AI-powered chatbots can handle customer queries 24/7, and automated systems can monitor equipment for predictive maintenance. ## Machine Learning Machine Learning (ML) is a subset of AI where machines improve their performance using data without explicit programming. ML algorithms can be supervised, unsupervised, or reinforcement-based. ## Benefits and Risks"
+  },
+  {
+    "doc_path": "data\\raw_docs\\sample.md",
+    "chunk_id": "sample.md::chunk_1",
+    "text": "improve their performance using data without explicit programming. ML algorithms can be supervised, unsupervised, or reinforcement-based. ## Benefits and Risks While AI offers many benefits, including efficiency and scalability, it also poses risks such as job displacement and ethical concerns. Responsible AI development involves fairness, transparency, and accountability."
+  },
+  {
+    "doc_path": "data\\raw_docs\\science.pdf",
+    "chunk_id": "science.pdf::chunk_0",
+    "text": "Science Facts The Earth revolves around the Sun once every 365.25 days, causing the seasons. Water freezes at 0 degrees Celsius and boils at 100 degrees Celsius under standard atmospheric pressure. The speed of light in vacuum is approximately 299,792 kilometers per second. Gravity is a force that attracts two bodies toward each other. On Earth, it gives weight to objects. Photosynthesis is the process by which green plants and some organisms use sunlight to synthesize foods from carbon dioxide and water. The human body is made up of approximately 60% water. Electricity is the flow of electric charge, often"
+  },
+  {
+    "doc_path": "data\\raw_docs\\science.pdf",
+    "chunk_id": "science.pdf::chunk_1",
+    "text": "and water. The human body is made up of approximately 60% water. Electricity is the flow of electric charge, often carried by moving electrons in a conductor. Sound travels faster in water than in air due to higher density."
+  }
+]
