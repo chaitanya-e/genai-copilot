@@ -1,3 +1,5 @@
+# By default, docker build looks for a file named Dockerfile in the build context folder,
+# but you can tell it to use any filename with -f.
 FROM python:3.11-slim AS base
 
 # Uses the official Python 3.11 slim image as the base.
@@ -37,7 +39,7 @@ EXPOSE 8080
 # Documents that the container will listen on port 8080.
 # This doesn’t actually publish the port — that happens with docker run -p.
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "2"]
+CMD ["uvicorn", "apps.api.main:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "2"]
 # The default command when the container starts.
 # Runs uvicorn (ASGI server) with:
 # app.main:app → load app object from main.py in app/ folder.

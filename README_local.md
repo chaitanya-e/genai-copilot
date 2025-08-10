@@ -52,9 +52,18 @@ curl -X POST http://localhost:8000/ask -H "Content-Type: application/json" --dat
 5. Docker commands:
 ```bash
 docker build -f ops/docker/Dockerfile.api -t genai-api:local .
-
+docker run --rm -p 8080:8080 -e OLLAMA_HOST=http://host.docker.internal:11434 genai-api:local
 ```
 
+6. Execution with streamlit:
+```bash
+uvicorn apps.api.main:app --host 0.0.0.0 --port 8080 
+streamlit run apps/ui/app.py
+```
+7. MLOPS
+```bash
+export MLFLOW_TRACKING_URI=./mlruns --> Initialization of MLflow local
+```
 ## API Endpoints
 
 - `POST /ask`
@@ -179,10 +188,38 @@ Final Response:
 ![alt text](image.png)
 
 #### Program flow
+```text
 rag.build_index -> utils.chunk_text()
+API CURL request -> main.get/post -> retriever
 
-
+Glossary:
 corpus - collection of chunk texts
 embeddings - collection of vectors for chunk texts
-senetecetransformer - bulit on top of pytorch and huggingface to create embeddings
+sentencetransformer - bulit on top of pytorch and huggingface to create embeddings
+
+PyTorch is like LEGO bricks for AI — you can snap together layers and functions to build whatever kind of AI model you want.
+It’s an open-source machine learning framework (created by Facebook/Meta).
+Developers and researchers use it to:
+Build neural networks
+Train models on data
+Run those models to make predictions
+It works on both CPU and GPU (GPUs make AI training way faster).
+It’s written in Python (with C++ under the hood for speed).
+
+If PyTorch is the toolbox, Hugging Face is the ready-made IKEA furniture store — you can just buy the model (for free) and use it, instead of crafting it from raw materials.
+Hugging Face is like an AI model library + community hub.
+
+PyTorch → the engine running the model (training & inference)
+Hugging Face → the model provider & convenience tools for easy use
+Example:
+When you use a Hugging Face model, under the hood it often runs on PyTorch (or TensorFlow), so Hugging Face handles downloading and loading, and PyTorch does the math.
+
+
+It’s a company & platform that hosts pretrained AI models (NLP, vision, speech, etc.).
+It has a library called transformers that lets you download and use powerful models (like GPT, BERT, Stable Diffusion) with just a few lines of code.
+You don’t have to train models from scratch — you can grab a ready-made one and fine-tune it for your data.
+
+Streamlit is an open-source Python library that makes it super easy to build interactive web apps — especially for data science, machine learning, and visualization — without needing to know HTML, CSS, or JavaScript.
+
 faiss - Facebook AI Similarity Search. It is used on top of embeddings. Its value can help in retrieval of nearest embeddings
+```

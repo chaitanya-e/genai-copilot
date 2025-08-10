@@ -1,6 +1,8 @@
 import json, time, httpx, difflib
 from pathlib import Path
 
+from mlops.mlflow.tracking import log_eval_run
+
 # Loads a list of test questions from a file (quests.json1).
 # Sends each question to your API endpoint /ask.
 # Measures response time.
@@ -34,6 +36,13 @@ for q in qs:
     # Uses difflib.SequenceMatcher to get a similarity score 0.0 → 1.0 (1.0 = exact match).
     scores.append(dt)
     print(f"Q: {q['question']}\n\nLatency: {dt:.1f} ms, Score: {ratio:.2f}\n---")
+
+log_eval_run(
+    name="faiss-qwen2.5-3b",
+    params={"embed_model":"all-MiniLM-L6-v2", "k": 5},
+    metrics={"average_latency_ms": sum(scores)/len(scores), "total_questions": len(scores)},
+)
+# Logs the evaluation run to MLflow with:  
 
 print(f"Average latency: {sum(scores)/len(scores):.1f} ms over {len(scores)} questions")
 

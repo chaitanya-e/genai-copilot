@@ -6,6 +6,9 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from rag.retriever import Retriever
+import time
+from rag.chains.safety import redact_pii, is_prompt_injection
+from models.llm_finetune.llm_client import generate
 
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:3b-instruct")
@@ -54,6 +57,8 @@ SYSTEM_INSTRUCTIONS = (
     "If nothing is directly related, summarize any relevant parts of the context."
     "Always cite sources in the format [doc_path::chunk_id]."
 )
+
+
 
 @app.post("/ask", response_model=AskResp)
 async def ask(body: AskReq):
